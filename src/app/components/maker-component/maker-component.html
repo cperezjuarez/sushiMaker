@@ -1,0 +1,22 @@
+<ul>
+    <li *ngFor="let ingrediente of getIngredientes()">{{ ingrediente.getNombre() }}</li>
+</ul>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Maker</title>
+</head>
+<body>
+    <section>
+        <div *ngFor="let base of getBases()">
+            <label>
+                <select name="{{base.getNombre()}}" id="{{base.getNombre()}}">{{base.getNombre()}}</select>
+            </label>
+            
+        </div>
+    </section>
+</body>
+</html>
