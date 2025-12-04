@@ -1,22 +1,90 @@
-<ul>
-    <li *ngFor="let ingrediente of getIngredientes()">{{ ingrediente.getNombre() }}</li>
-</ul>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sushi Maker</title>
 </head>
+
 <body>
-    <section>
-        <div *ngFor="let base of getBases()">
+    <form>
+        <!-- BASES -->
+        <fieldset>
+            <legend>Bases</legend>
             <label>
-                <select name="{{base.getNombre()}}" id="{{base.getNombre()}}">{{base.getNombre()}}</select>
+                <input type="radio" name="base" value="rice" [(ngModel)]="baseSelec"> rice
             </label>
-            
-        </div>
+
+            <label>
+                <input type="radio" name="base" value="nori & rice" [(ngModel)]="baseSelec"> nori & rice
+            </label>
+        </fieldset>
+
+        <!-- TOPPINGS -->
+        <fieldset>
+            <legend>Toppings</legend>
+            <label>
+                <input type="checkbox" name="toppings" value="salmon" (change)="toggleTopping('salmon', $event)"> salmon
+            </label>
+
+            <label>
+                <input type="checkbox" name="toppings" value="tuna" (change)="toggleTopping('tuna', $event)"> tuna
+            </label>
+
+            <label>
+                <input type="checkbox" name="toppings" value="cucumber" (change)="toggleTopping('cucumber', $event)">
+                cucumber
+            </label>
+        </fieldset>
+
+        <!-- EXTRAS -->
+        <fieldset>
+            <legend>Extras</legend>
+            <label>
+                <input type="checkbox" name="extras" value="chicken" (change)="toggleExtra('chicken', $event)"> chicken
+            </label>
+
+            <label>
+                <input type="checkbox" name="extras" value="avocado" (change)="toggleExtra('avocado', $event)"> avocado
+            </label>
+        </fieldset>
+
+        <!-- SAUCES -->
+        <fieldset>
+            <legend>Sauces</legend>
+            <label>
+                <input type="checkbox" name="sauces" value="wasabi" (change)="toggleSauce('wasabi', $event)"> wasabi
+            </label>
+        </fieldset>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+
+    <section>
+        <h1>Preview</h1>
+
+        <h2>Base:</h2>
+        <ul>
+            <li>{{getBaseSelec()}}</li>
+        </ul>
+
+        <h2>Topping:</h2>
+        <ul>
+            <li *ngFor="let topping of getToppingsSelec()">{{topping}}</li>
+        </ul>
+        
+        <h2>Extras:</h2>
+        <ul>
+            <li *ngFor="let extra of getExtrasSelec()">{{extra}}</li>
+        </ul>
+        
+        <h2>Sauces:</h2>
+        <ul>
+            <li *ngFor="let sauce of getSaucesSelec()">{{sauce}}</li>
+        </ul>
     </section>
 </body>
+
 </html>
