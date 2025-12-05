@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand" (click)="index()">🍣 SushiMaker</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" (click)="index()">
+            Crear Pedido
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            Historial
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="container py-5">
+  <h1 class="text-center text-light mb-5 display-4">🍣 Tu Sushi</h1>
+
+  <!-- Card del sushi -->
+  <div class="card bg-dark text-light mx-auto shadow" style="max-width: 500px;">
+    <div class="card-header text-center fs-3">
+      Ingredientes
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center" *ngFor="let ingrediente of obtenerSushi().getIngredientes()"> 
+        {{ ingrediente.getNombre() }}
+        <span class="badge bg-success rounded">{{ ingrediente.getCategoria() }}</span>
+      </li>
+    </ul>
+
+    <div class="card-body text-center">
+      <div class="mb-3">
+        <h5>Tiempo de preparación</h5>
+        <p class="fs-5">{{ obtenerSushi().calcularTiempoPrep() }} min</p>
+      </div>
+      <div>
+        <h5>Precio</h5>
+        <p class="fs-5">${{ obtenerSushi().calcularPrecio() }}</p>
+      </div>
+      <button class="btn btn-outline-light mt-3" (click)="index()">Crear otro sushi</button>
+    </div>
+  </div>
+</section>

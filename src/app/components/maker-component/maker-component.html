@@ -1,90 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand" href="#" (click)="index()">🍣 SushiMaker</a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushi Maker</title>
-</head>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" (click)="index()">
+            Crear Pedido
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            Historial
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<body>
-    <form>
+
+<section class="container mt-5">
+    <form class="p-4 bg-dark border border-secondary rounded shadow text-light mx-auto" style="max-width: 700px; width: 100%;" (ngSubmit)="crearPedido()">
         <!-- BASES -->
-        <fieldset>
-            <legend>Bases</legend>
-            <label>
-                <input type="radio" name="base" value="rice" [(ngModel)]="baseSelec"> rice
-            </label>
-
-            <label>
-                <input type="radio" name="base" value="nori & rice" [(ngModel)]="baseSelec"> nori & rice
-            </label>
+        <fieldset class="mb-4">
+            <legend class="h5 mb-3">Bases</legend>
+            <select class="form-select" [(ngModel)]="baseSelec" name="base">
+                <option *ngFor="let base of getBases()" [ngValue]="base">{{ base.getNombre() }}</option>
+            </select>
         </fieldset>
 
         <!-- TOPPINGS -->
-        <fieldset>
-            <legend>Toppings</legend>
-            <label>
-                <input type="checkbox" name="toppings" value="salmon" (change)="toggleTopping('salmon', $event)"> salmon
-            </label>
+         <div class="d-flex justify-content-evenly">
+             <fieldset class="mb-4">
+                 <legend class="h5 mb-3">Toppings</legend>
+                 <div class="form-check mb-2" *ngFor="let topping of getToppings()">
+                     <input class="form-check-input" type="checkbox" id="{{topping.getNombre()}}" name="{{topping.getNombre()}}" (change)="toggleTopping(topping, $event)">
+                     <label class="form-check-label text-light" for="{{topping.getNombre()}}">{{topping.getNombre()}}</label>
+                 </div>
+             </fieldset>
+     
+             <!-- EXTRAS -->
+             <fieldset class="mb-4">
+                 <legend class="h5 mb-3">Extras</legend>
+                 <div class="form-check mb-2" *ngFor="let extra of getExtras()">
+                     <input class="form-check-input" type="checkbox" id="{{extra.getNombre()}}" name="{{extra.getNombre()}}" (change)="toggleExtra(extra, $event)">
+                     <label class="form-check-label text-light" for="{{extra.getNombre()}}">{{extra.getNombre()}}</label>
+                 </div>
+             </fieldset>
+     
+             <!-- Sauces -->
+             <fieldset class="mb-4">
+                 <legend class="h5 mb-3">Sauces</legend>
+                 <div class="form-check mb-2" *ngFor="let sauce of getSauces()">
+                     <input class="form-check-input" type="checkbox" id="{{sauce.getNombre()}}" name="{{sauce.getNombre()}}" (change)="toggleSauce(sauce, $event)">
+                     <label class="form-check-label text-light" for="{{sauce.getNombre()}}">{{sauce.getNombre()}}</label>
+                 </div>
+             </fieldset>
+         </div>
 
-            <label>
-                <input type="checkbox" name="toppings" value="tuna" (change)="toggleTopping('tuna', $event)"> tuna
-            </label>
-
-            <label>
-                <input type="checkbox" name="toppings" value="cucumber" (change)="toggleTopping('cucumber', $event)">
-                cucumber
-            </label>
-        </fieldset>
-
-        <!-- EXTRAS -->
-        <fieldset>
-            <legend>Extras</legend>
-            <label>
-                <input type="checkbox" name="extras" value="chicken" (change)="toggleExtra('chicken', $event)"> chicken
-            </label>
-
-            <label>
-                <input type="checkbox" name="extras" value="avocado" (change)="toggleExtra('avocado', $event)"> avocado
-            </label>
-        </fieldset>
-
-        <!-- SAUCES -->
-        <fieldset>
-            <legend>Sauces</legend>
-            <label>
-                <input type="checkbox" name="sauces" value="wasabi" (change)="toggleSauce('wasabi', $event)"> wasabi
-            </label>
-        </fieldset>
-
-        <button type="submit">Enviar</button>
+        <input type="submit" class="btn btn-success w-100">
     </form>
+</section>
 
 
-    <section>
-        <h1>Preview</h1>
 
-        <h2>Base:</h2>
-        <ul>
-            <li>{{getBaseSelec()}}</li>
-        </ul>
+<section class="container py-5">
+  <h1 class="text-center text-light mb-5 display-4">🍣 Preview de tu Sushi</h1>
 
-        <h2>Topping:</h2>
-        <ul>
-            <li *ngFor="let topping of getToppingsSelec()">{{topping}}</li>
-        </ul>
-        
-        <h2>Extras:</h2>
-        <ul>
-            <li *ngFor="let extra of getExtrasSelec()">{{extra}}</li>
-        </ul>
-        
-        <h2>Sauces:</h2>
-        <ul>
-            <li *ngFor="let sauce of getSaucesSelec()">{{sauce}}</li>
-        </ul>
-    </section>
-</body>
+  <!-- Card para la base -->
+  <div class="card bg-dark text-light mb-4 shadow mx-auto" style="max-width: 600px;">
+    <div class="card-header fs-4 text-center">Base</div>
+    <div class="card-body text-center fs-5">
+      {{ getBaseSelec()?.getNombre() || 'No seleccionada' }}
+    </div>
+  </div>
 
-</html>
+  <!-- Card para toppings -->
+  <div class="card bg-dark text-light mb-4 shadow mx-auto" style="max-width: 600px;">
+    <div class="card-header fs-4 text-center">Toppings</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-transparent text-light" *ngFor="let topping of getToppingsSelec()">
+        {{ topping.getNombre() }}
+        <span class="badge bg-info rounded-pill float-end">{{ topping.getCategoria() }}</span>
+      </li>
+      <li *ngIf="getToppingsSelec().length === 0" class="list-group-item bg-transparent text-light text-center">
+        No seleccionados
+      </li>
+    </ul>
+  </div>
+
+  <!-- Card para extras -->
+  <div class="card bg-dark text-light mb-4 shadow mx-auto" style="max-width: 600px;">
+    <div class="card-header fs-4 text-center">Extras</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-transparent text-light" *ngFor="let extra of getExtrasSelec()">
+        {{ extra.getNombre() }}
+        <span class="badge bg-success rounded-pill float-end">{{ extra.getCategoria() }}</span>
+      </li>
+      <li *ngIf="getExtrasSelec().length === 0" class="list-group-item bg-transparent text-light text-center">
+        No seleccionados
+      </li>
+    </ul>
+  </div>
+
+  <!-- Card para sauces -->
+  <div class="card bg-dark text-light mb-4 shadow mx-auto" style="max-width: 600px;">
+    <div class="card-header fs-4 text-center">Salsas</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-transparent text-light" *ngFor="let sauce of getSaucesSelec()">
+        {{ sauce.getNombre() }}
+        <span class="badge bg-warning text-dark rounded-pill float-end">{{ sauce.getCategoria() }}</span>
+      </li>
+      <li *ngIf="getSaucesSelec().length === 0" class="list-group-item bg-transparent text-light text-center">
+        No seleccionadas
+      </li>
+    </ul>
+  </div>
+</section>

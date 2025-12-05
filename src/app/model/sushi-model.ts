@@ -7,9 +7,7 @@ export class SushiModel {
     private tiempoPrepTotal!: number;
 
     // Constructor
-    constructor(ingredientes: IngredienteModel[]) {
-        this.setIngredientes(ingredientes);
-    }
+    constructor() {}
 
     // Metodos
     public calcularPrecio(): number {

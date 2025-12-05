@@ -8,11 +8,15 @@ import { IngredienteModel } from '../model/ingrediente-model';
 export class SushiService {
   // Atributos
   ingredientes: IngredienteModel[] = [];
+  sushi: SushiModel = new SushiModel();
 
   // Métodos
-  public generarSushi(base: string, toppings: string[], extras: string[], sauces: string[]) {
+  public generarSushi(base: IngredienteModel, toppings: IngredienteModel[], extras: IngredienteModel[], sauces: IngredienteModel[]) {
     // Creamos una lista con los ingredientes
-    let ingredientesSelec: string[] = [base]
+    this.ingredientes.push(base, ...toppings, ...extras, ...sauces)
+
+    // Creamos el sushi
+    this.sushi.setIngredientes(this.ingredientes)
   }
 
   // Getters & Setters
@@ -22,5 +26,12 @@ export class SushiService {
   }
   public setIngredientes(value: IngredienteModel[]) {
     this.ingredientes = value;
+  }
+
+  public getSushi(): SushiModel {
+    return this.sushi;
+  }
+  public setSushi(value: SushiModel) {
+    this.sushi = value;
   }
 }
