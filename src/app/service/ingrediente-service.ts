@@ -17,12 +17,6 @@ export class IngredienteService {
     new IngredienteModel('wasabi', 'sauce', 1.2, 1),
   ];
 
-  // Métodos
-  public BuscarIngrediente(nombre: string): IngredienteModel | undefined {
-    return this.getIngredientes().find(ingrediente => ingrediente.getNombre().toLocaleLowerCase() === nombre.toLowerCase());
-    return undefined;
-  }
-
   // Getters & Setters
   public getIngredientes(): IngredienteModel[] {
     return this.ingredientes;

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MakerComponent } from './maker-component';
+import { HistorialPage } from './historial-page';
 
-describe('MakerComponent', () => {
-  let component: MakerComponent;
-  let fixture: ComponentFixture<MakerComponent>;
+describe('HistorialPage', () => {
+  let component: HistorialPage;
+  let fixture: ComponentFixture<HistorialPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MakerComponent]
+      imports: [HistorialPage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MakerComponent);
+    fixture = TestBed.createComponent(HistorialPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

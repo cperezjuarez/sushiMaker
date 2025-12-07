@@ -1,0 +1,35 @@
+<!-- NAV -->
+<app-header-layout></app-header-layout>
+
+<!-- HISTORIAL -->
+<section class="container py-5">
+    <h1 class="text-center text-light mb-5 display-4">🍣 Historial de Sushis</h1>
+
+    <section *ngFor="let sushi of getHistorial()">
+        <!-- Card del sushi -->
+        <div class="card bg-dark text-light mx-auto shadow mb-5" style="max-width: 500px;">
+            <div class="card-header text-center fs-4">
+                Ingredientes
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center"
+                    *ngFor="let ingrediente of sushi.getIngredientes()">
+                    {{ ingrediente.getNombre() }}
+                    <span class="badge bg-success rounded">{{ ingrediente.getCategoria() }}</span>
+                </li>
+            </ul>
+
+            <div class="card-body text-center">
+              <div class="mb-3">
+                <h5>Tiempo de preparación</h5>
+                <p class="fs-5">{{ sushi.calcularTiempoPrep() }} min</p>
+              </div>
+              <div>
+                <h5>Precio</h5>
+                <p class="fs-5">${{ sushi.calcularPrecio() }}</p>
+              </div>
+            </div>
+        </div>
+    
+    </section>
+</section>

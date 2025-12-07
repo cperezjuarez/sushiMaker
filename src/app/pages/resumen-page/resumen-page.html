@@ -1,24 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-  <div class="container">
-    <a class="navbar-brand" (click)="index()">🍣 SushiMaker</a>
+<!-- NAV -->
+<app-header-layout></app-header-layout>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" (click)="index()">
-            Crear Pedido
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">
-            Historial
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
+<!-- RESUMEN -->
 <section class="container py-5">
   <h1 class="text-center text-light mb-5 display-4">🍣 Tu Sushi</h1>
 
@@ -43,7 +26,7 @@
         <h5>Precio</h5>
         <p class="fs-5">${{ obtenerSushi().calcularPrecio() }}</p>
       </div>
-      <button class="btn btn-outline-light mt-3" (click)="index()">Crear otro sushi</button>
+      <button class="btn btn-outline-light mt-3" routerLink="/maker">Crear otro sushi</button>
     </div>
   </div>
 </section>
